@@ -1,0 +1,14 @@
+# How to back-up from uahpc to box 
+
+# ssh into uahpc from terminal and navigate to directory where the setup file is located (called .mylftp). 
+
+lftp #This activates lftp
+source .mylftp 
+
+#Should now be in box and can navigate to the Back-up directory
+
+mirror -R -c # this uploads files from uahpc into box and the -c flag causes it to pick from where it left off
+
+#Note this can be a long process so best to do it in a different terminal tab
+#Note box is limited to files under a certain size so particularly big files need to be broken up or backed up else where
+
