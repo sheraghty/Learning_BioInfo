@@ -1,0 +1,24 @@
+#Some helpful bits of code for managing remote unix servers 
+
+#To run multiple jobs at once without using a workload manager like SLURM, there are several options.
+#1) Pushing jobs to the background which can be done like ./my_script.sh &
+#  a) In order to keep running this script, even if the shell is closed do the following 
+    nohup ./myscript.sh &
+
+#2) Using a program like screen
+#Create screen using this command: screen -S testscreen
+#List the screen using this command: screen -ls
+#Attache the screen using this command: screen -r testscreen
+#Attache the multipurpose screen using this command (if already others are attached with the same screen): screen -x testscreen
+#Detach the screen using this command: screen -X detach OR Ctrl+a+d
+#Kill the screen using this command: screen -XS testscreen kill
+#Terminate the attached screen using: Ctrl+d
+
+
+#In order to see what jobs are running use the following
+#ps -ef | grep "my_username"
+#Note: grep is optional, but useful if there are other users
+
+#In order to kill jobs do the following 
+# kill JOBID
+# Note: JOBID can be obtained from the ps -ef command 
