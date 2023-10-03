@@ -1,0 +1,10 @@
+#Several useful odds and ends for manipulating fasta files 
+
+#removing a given list of sequences
+awk 'NR==FNR{a[$0];next} /^>/{f=($0 in a ? 1 : 0)} !f' list_to_remove.txt my_file.fa
+
+#linearize a fasta 
+awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' my_file.fa > my_file_linear.fa 
+
+#Convert a linear fasta into a multi-line format 
+tr "\t" "\n" < my_file_linear.fa | fold -w 60 > my_file_multi.fa
