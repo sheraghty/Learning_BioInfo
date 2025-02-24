@@ -2,9 +2,18 @@
 This is a tutorial for using the `screen` function to help manage what what programs and scripts you might have running at any given time. Briefly, we will go over how to create and delete screen sessions, why screen is a vital tool for bioinformatics, and how to monitor the status of your scripts.
 
 # What is screen #
-
+Screen is a terminal multiplexer, which essentially lets you have multiple concurrently running shells. This is especially useful when you want to either run multiple programs at once or have a task that is going to take a considerable amount of time. Screen allows you to create seperate instantances that are basically standalone terminal/shell session that you can disconnect from and reconnect from at will. This means you can use screen to start a session, run a program that might take a day or two, disconnect and do something else in the interim. This is safer than opening up multiple terminal instances for a few reasons. Its much easier to accidentally close a terminal window and kill whatever process is running when you have multiple instances open. However, with screen you don't have that issue as after you detach from a given session, your program will keep on running even if you close the the terminal window. There are some obvious caveats to this - your screen session will still get terminated if the computer gets turned off or restarted. Additionally, your program can still fail on its own. An important final note, screen is very useful when used on personal machines or certain remote computing platforms. It really is not going to be very useful when using a remote computing cluster that has a workload manager like `SLURM`, so you should be aware of how your computional resources are configured to get the best out of them. 
 # Screen commands #
+The most important commands are going to be starting, reconnecting, and ending sessions. There are a lot of other functions as well that might be of interest to folks. This is simply meant to be a starting point, but interested people should google around to see all of the useful functions the screen has.
 ## Starting and reconnecting ##
+In order to start a session, the best way is to use the `-S` flag as seen below. 
+``` bash
+screen -S test
+```
+This starts a screen session that is named test. You don't necessarily need to name the session, you can simply start a session by typing screen, but giving it a name makes it easier to connect later. When you want to disconnect from a session that easiest way to do this is `Ctrl + a + d`, although you can see the manual page for other ways of doing this. When you want to reconnect, its bascially the same as befor but you use the `-R` flag instead.
+```bash
+screen -R test
+```
 ## Ending sessions ##
 
 # How to monitor progress #
