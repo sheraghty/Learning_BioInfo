@@ -3,3 +3,4 @@ This directory contains a few tutorials that go over some of the basics of worki
 
 
 # Tutorial Descriptions #
+Using_commands ~ This tutorial goes over how to use some basic commands in a bash shell as well as how to save the outputs of these commands 
