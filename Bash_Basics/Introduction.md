@@ -44,3 +44,10 @@ There are many many useful functions built into the bash shell by default and ma
 ```bash
 man echo
 ```
+
+# Exercises #
+Using the manual page for the echo function. Try to figure out how to print "Hello world" across two lines instead of one. The output should look as shown below
+```bash
+Hello
+world
+```
