@@ -8,6 +8,11 @@ history
 history 10 #only shows the 10 most recent inputs
 ```
 
+We can also use grep to look for specific inputs as well. This is especially useful if the input we are interested in is something that might be buried deep in the history file. See below for an example 
+```bash
+history | grep "cat" # get instances of when we used the cat command
+```
+
 ## rerunning previous commands ##
 There are a couple of ways that we can rerun a previous command. The easiest way is to press the `up arrow` on the key board which bring up the previous input to the command line. Hitting the up arrow multiple times will continue to go to increadingly older inputs (e.g. hitting the up arrow 10 times brings up the 10th most recent input). Using the up-arrow to bring up old inputs, returns the text to the command line and it can be editted as necessary. As an alternative to the up-arrow, we can also use notation involved the exclaimation point. See code below for examples
 
@@ -38,3 +43,15 @@ history -c #clear the entire history file
 ```
 
 # Using the script function #
+The `history` command that we have discussed so far is an excellent way to record what you've done in the terminal since it retains records of all your inputs by default. The biggest limitation of the `history` function is that it only records the input and not things printed to stdout or stderr. If we want to create a more complete record of what we've done in a given shell session, we can use the `script` command which records everything across stdin, stdout, and stderr. Unlike the `history` function, the `script` function needs to be actively turned on and off. See below for an example of how to invoke this function as well as turn it off
+```bash
+script my_script.txt #this starts the script
+#now we'll run a few commands
+echo "testing 1 2 3"
+pwd
+ls -l
+exit #this closes the script
+cat my_script.txt #Look at what was recorded
+```
+
+There are a couple of other settings for the `script` function that might be of interest, see [this article](https://www.geeksforgeeks.org/script-command-in-linux-with-examples/) for more information 
