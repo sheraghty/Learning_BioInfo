@@ -28,3 +28,10 @@ cut -f1,2 -d"," wnba_24_example.csv
 ```
 
 ## Grep ##
+Grep is a flexible tool for looking for lines in a file that match a certain pattern. For instance, if we only wanted to look at the stats of the New York Liberty we could use grep as below.
+```bash
+grep "New York Liberty" wnba_24_example.csv
+#Note we will get the same result if we just use New as our search pattern
+grep "New" wnba_24_example.csv
+grep -v "New" wnba_24_example.csv #We can also invert the search using the -v flag 
+```
