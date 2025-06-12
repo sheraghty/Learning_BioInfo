@@ -35,3 +35,9 @@ grep "New York Liberty" wnba_24_example.csv
 grep "New" wnba_24_example.csv
 grep -v "New" wnba_24_example.csv #We can also invert the search using the -v flag 
 ```
+To use the full power of grep (and many other BASH applications) we'll need to use *Regular Expressions* otherwise known as regex. Regrex is basically a shorthand for flexibly defining search patterns. An understanding regrex is an essentialy skill in the bioinformatics toolkit, see [this tutorial](https://www.geeksforgeeks.org/dsa/write-regular-expressions/) for an indepth explanation of the different symbols used. To use regex in grep, we will either need to use the `-E` flag in grep or use egrep depending on which unix distribution you're using (in some distributions, grep has the `-E` flag built in). See below for some examples of how to use grep with regex on our example file
+
+```bash
+grep -E ".+" wnba_24_example.csv #This searchs for anything
+grep -E -o "^[A-Z][a-z]+" wnba_24_example.csv #This will print only the first word
+```
