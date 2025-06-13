@@ -41,3 +41,24 @@ To use the full power of grep (and many other BASH applications) we'll need to u
 grep -E ".+" wnba_24_example.csv #This searchs for anything
 grep -E -o "^[A-Z][a-z]+" wnba_24_example.csv #This will print only the first word
 ```
+
+## awk ##
+Awk is a flexible tool that provides a number of options for parsing text files. Getting the most out of awk can be a little difficult for beginners, so we won't focus too much on it in this tutorial. However if you're interested see [this tutorial](https://www.cyberciti.biz/faq/bash-scripting-using-awk/)
+
+# Editing the file #
+We've already gone over how to edit the file using a text editor like `vi`, however this is not going to be useful when we working with large files or want replace multiple instances of the same string of text. We can edit files much more efficiently using the `sed` command which in essence acts like a a find and replace tool. The Basic formula for the use of this command is `"s/FIND/REPLACE/"`. The initial `s` stands for substitute. The `FIND` represents the string of text that already exists in the file that you want alter. The `REPLACE` represents the string that you want to go in place of what was there previously. As an example, lets use sed to replace all of the white spaces in our wnba example file. 
+```bash
+sed "s/ //" wnba_24_example.csv
+```
+
+The above code almost does the job, but not quite. Notice, that this will only replace the first white space encountered on a given line. If we want sed to replace every instance of a white space, we need to add a `g` to our sed command, which stands for global. In other words, we are telling sed that we don't want it to stop after finding one instance of our pattern of interest.
+
+```bash
+sed "s/ //" wnba_24_example.csv
+```
+Like `grep` and many other unix commands, we can also use regrex to more flexibly create search patterns. For instance, we can use regex to add the word "The" infront of the team names. 
+
+```bash
+sed "s/^/The /" wnba_24_example.csv
+```
+While, there are a number of other fancy things that we can do with `sed`, the only other thing that we are going to cover in this tutorial is how to save the output of this command. Like all other unix commands, we can direct it to print its output into a text file instead of printing to stdout using the `>` character. For instance `sed "s/^/The /" wnba_24_example.csv > edited_example.csv`, however the main draw back of this method is that we end up with multiple copies of very similar files. This can quickly eat up storage, especially if you are working with large files. We can also use the `-i` flag, which stands for inplace which automatically saves the edits to the original file. This means using the `-i` flag is a dangerous options as it effectively deletes the original file.
