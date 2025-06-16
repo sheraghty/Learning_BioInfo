@@ -44,6 +44,56 @@ We can also use a while loop to go through all of the lines of a file. We will p
 ```bash
 while read line
 do
-	echo ${line} 
+  echo ${line} 
 done < wnba_24_example.csv
+```
+# Until Loop #
+The until loop is more or less the samething as a while loop, but instead of running while something *is* true the until loop runs *until* something is true. 
+```
+x=1
+until [ $x -gt 5 ] #the condition is x less than 5 or equal to 5
+do
+  echo "$x is a number less than 6"
+  x=$(( $x + 1 )) #This adds one more to X
+done
+```
+# Advance looping #
+In the first part of this tutorial we just went through the basic types of loops, now we'll go ahead and look at some more advanced options when it comes to constructing loops
+## Nesting loops ##
+It is possible to have loops within loops. This means for one iteration of the first loop to complete that the entire second loop must be completed. This can be a little confusing to understand, but we can look at the example below to get a better understanding of how this works. Note: I used tabs to make the different loops obvious how they were set up, but you don't need to do this.
+```bash
+for i in {1..5}; 
+do
+	for j in {1..5};
+	do
+		echo "The first/outter loop is on iteration $i and the second/inner loop is on iteration $j"
+	done
+done
+```
+## elif statements ##
+`elif` stands for else if and these statements are used when we want one action to take place under certain parameters and a different action to take place under different parameters. For instance, if a number if above or below a certain value, we can print different text. 
+
+```bash
+numb=120
+if [ $numb -gt 100 ]; then
+	echo "$numb is greater than 100"
+else
+	echo "$number is less than 100"
+fi
+```
+
+We can also implement this into a loop as below
+
+```bash
+for i in {1..10}; do
+	if [ $i -lt 5 ]; then
+ 	  echo "$i is less than 5"
+	fi
+	if [ $i -eq 5 ]; then
+	  echo "$i equal to 5"
+	fi
+	if [ $i -gt 5 ]; then 
+	echo " $i is greater than 5"
+	fi
+done
 ```
