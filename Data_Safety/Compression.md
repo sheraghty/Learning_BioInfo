@@ -13,7 +13,12 @@ gzip example.txt
 gunzip example.txt.gz
 ```
 ## xz ##
+xz utils is another lossless method of data compression that can achieve higher compression ratios than other tools, like gzip, but may be slower. Like gzip, this tool can only be used on individual files, not on directories. Files compressed using this tool end in the .xz extention. We can also add the `-c` flag if we want to push the compressed/decompressed file to stdout instead of a file.
 
+```bash
+xz example.txt
+xz -d example.txt.xz #Alternatively unxz example.txt.xz
+```
 ## zip ##
 
 ## tar ##
