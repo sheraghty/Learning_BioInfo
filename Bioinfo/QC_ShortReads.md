@@ -17,11 +17,15 @@ CC;CCCCCCCCC;;CCCCCCCCC;CCCCCCCC;CCCCCCCCCCCCCCCCCCCCCC;;CCCC-CCCCCCCCC;CCCC-C-C
 
 Each position in the read is assigned a quality score as it is sequencing, which basically corresponds to how likely that position is to be "correct". There are some general trends with quality scores that are worth knowing. First, quality scores tend to decrease towards the end of the read, which is due to [a known issue referred to as phasing](https://www.ecseq.com/support/ngs/why-does-the-sequence-quality-decrease-over-the-read-in-illumina). Secondly, reverse reads tend to have worse quality scores than forward reads, which is due to [an issue with amplification](https://www.ecseq.com/support/ngs/why-has-reverse-read-a-worse-quality-than-forward-read-in-Illumina-sequencing). 
 
-A useful program for assessing the quality of sequencing data is [fastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), which can quickly provide visual summaries of the quality scores by position. 
+We can quickly summarize the per postion quality scores for an entire fastq file using [fastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). The information provided by fastQC will be useful in the next section of the tutorial where we decide if we need to do any trimming.
 
-# Should I trim? #
+# Trimming #
+As we saw in the video linked in the overview section, before the sequencing process beings we ligate adapters to our DNA fragments (we also add in index sequences so we can identify which fragements correspond to which sample). Trimming generally refers to removing these adaptor and index sequences from the DNA fragments of interest as well as removing low quality positions. 
 
-# How to Trim #
+## Should I trim? ##
+If you should trim or not depends on what you're using the data for as well as what type of software you're using. [A general rule of thumb](https://dnatech.ucdavis.edu/faqs/when-should-i-trim-my-illumina-reads-and-how-should-i-do-it) is that pipelines that involve read counting don't require trimming whereas pipelines that involve variant calling does require trimming. In the case of the read counting pipelines, many of the aligners have built in ways of automatically "ignoring" adapater/index/low quality sequences. 
+
+## How to Trim ##
 
 # Optional Sanity checks #
 A final quick check that you may do, is to make sure that you recieved the correct sequencing data. If there was an issue on this front (e.g. you sent off bee DNA for sequencing, but your samples got mixed up with those from a fish DNA project), it would quickly become appartent in your downstream analyses (e.g. when the fish reads don't align to your bee reference genome). However, we can do a few quick optional checks before we waste time and resources in later steps. Depending on the type of data you have, you can simply BLAST a few of your reads and make sure you get results that generally match with your expectations (e.g. if you BLAST reads from a bee you sequences, you'd expect BLAST results from other bee species or at the very least other insects). This is just a quick rough check and wouldn't necessarily provide definite proof you got the right data back, but would at least catch any major issues right off the back. 
