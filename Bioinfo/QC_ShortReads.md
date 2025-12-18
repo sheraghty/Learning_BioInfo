@@ -26,6 +26,24 @@ As we saw in the video linked in the overview section, before the sequencing pro
 If you should trim or not depends on what you're using the data for as well as what type of software you're using. [A general rule of thumb](https://dnatech.ucdavis.edu/faqs/when-should-i-trim-my-illumina-reads-and-how-should-i-do-it) is that pipelines that involve read counting don't require trimming whereas pipelines that involve variant calling does require trimming. In the case of the read counting pipelines, many of the aligners have built in ways of automatically "ignoring" adapater/index/low quality sequences. 
 
 ## How to Trim ##
+After deciding if you need to trim your data or not, the next thing to decide is what trimming software you want to use. There are a number of different options at this point, but we will use [BBDuk](https://archive.jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/) in this example. BBDuk uses kmer based trimming (see link to BBDuk website for more information) and allows us to trim adaptors as well as low quality bases in the same command. The most important thing to remember when trimming is that we want to make sure that our forward and reverse reads remain identical after trimming (if they aren't, this will cause problems down the line), which means we need to make sure we read in the files together and trim them simulataneously. See below for an example of using BBDuk to remove adaptors and trim low quality reads and for an explaination of what the various flags mean.
+
+```bash
+bbduk.sh in1=Example.R1.fq in2=Example.R2.fq out1=Exampled_trimmed.R1.fq out2=Exampled_trimmed.R2.fq ktrim=r k=23 mink=11 hdist=1 tpe tbo ftm=5 qtrim=rl trimq=10 minlen=25
+```
+* the in and out flags are used to indicate what inputs are and the desired output names
+* the ktrim flag is used to indicate if we want to remove 3' or 5' adaptors using the values r or l respectively (in this case we used r)
+* the k flag is used to set the kmer size and the max value is the length of the adaptor sequence
+* mink
+* the hdist flag sets the hamming distance, which in this case allows for there to be a one bp difference between the adaptor reference and the sequence
+* tpe requires that the forward and reverse reads are trimmed to the same length
+* tbo enables trimming via adaptor overoverlap
+* ftm essentially states the the read length needs to end in a multiple of 5 (see BBDuk documentation for why)
+* qtrim sets what side the quality trimming is to be done on (in this case the right side)
+* trimq sets the minimum quality score for a postion to be retained (i.e. if a position has a quality score of 9 it would be trimmed off)
+* minlen sets the minimum readlength to be retained after trimming. In this instance, if trimming would cause a read to be less than 25bp that read would be removed.
+
+There are several other options that we did not use in this example. We can provide a reference file with the adaptors used with the `ref` flag, but BBDuk has some of these adaptors built in by default (see which ones by reading the BBDuk documentation). Additionally, we can also give the software extra memory using something like `-Xmx300g prealloc`, which would allow BBDuk to use 300gb of memory. 
 
 # Optional Sanity checks #
 A final quick check that you may do, is to make sure that you recieved the correct sequencing data. If there was an issue on this front (e.g. you sent off bee DNA for sequencing, but your samples got mixed up with those from a fish DNA project), it would quickly become appartent in your downstream analyses (e.g. when the fish reads don't align to your bee reference genome). However, we can do a few quick optional checks before we waste time and resources in later steps. Depending on the type of data you have, you can simply BLAST a few of your reads and make sure you get results that generally match with your expectations (e.g. if you BLAST reads from a bee you sequences, you'd expect BLAST results from other bee species or at the very least other insects). This is just a quick rough check and wouldn't necessarily provide definite proof you got the right data back, but would at least catch any major issues right off the back. 
