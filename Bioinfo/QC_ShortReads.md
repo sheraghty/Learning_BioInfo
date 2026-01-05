@@ -17,7 +17,12 @@ CC;CCCCCCCCC;;CCCCCCCCC;CCCCCCCC;CCCCCCCCCCCCCCCCCCCCCC;;CCCC-CCCCCCCCC;CCCC-C-C
 
 Each position in the read is assigned a quality score as it is sequencing, which basically corresponds to how likely that position is to be "correct". There are some general trends with quality scores that are worth knowing. First, quality scores tend to decrease towards the end of the read, which is due to [a known issue referred to as phasing](https://www.ecseq.com/support/ngs/why-does-the-sequence-quality-decrease-over-the-read-in-illumina). Secondly, reverse reads tend to have worse quality scores than forward reads, which is due to [an issue with amplification](https://www.ecseq.com/support/ngs/why-has-reverse-read-a-worse-quality-than-forward-read-in-Illumina-sequencing). 
 
-We can quickly summarize the per postion quality scores for an entire fastq file using [fastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). The information provided by fastQC will be useful in the next section of the tutorial where we decide if we need to do any trimming.
+We can quickly summarize the per postion quality scores for an entire fastq file using [fastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). The information provided by fastQC will be useful in the next section of the tutorial where we decide if we need to do any trimming. See below for an example of how to use fastQC from the command line
+
+```bash
+./fastqc #if you want to run in interactive mode
+./fastqc my_file.fq #If you want to generate an html report for a given fastq file
+```
 
 # Trimming #
 As we saw in the video linked in the overview section, before the sequencing process beings we ligate adapters to our DNA fragments (we also add in index sequences so we can identify which fragements correspond to which sample). Trimming generally refers to removing these adaptor and index sequences from the DNA fragments of interest as well as removing low quality positions. 
